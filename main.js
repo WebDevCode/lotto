@@ -9,7 +9,7 @@ function onSubmit() {
     document.querySelector('input[name="combination"]:checked').value
   );
   const result = run(convertedValue, combinationValue);
-  console.log(result);
+
   appendToTable(result);
 }
 

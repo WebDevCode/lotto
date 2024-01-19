@@ -32,16 +32,34 @@ function generateCombinationsForArrays(arrays, k) {
 //  console.log(resultArray);
 
 function sortArrayofArrays(arr) {
-  return arr.map((a) => a.sort());
+  return arr.map((a) => a.sort((x, y) => x - y));
+}
+function removeDuplicates(arr) {
+  return Array.from(new Set(arr.map(JSON.stringify)), JSON.parse);
 }
 
-function countOccurrences(arrays) {
-  const occurrencesMap = new Map();
+function doesExist(arrtoCheck, combArray) {
+  return combArray.every((v) => arrtoCheck.includes(v));
+}
 
+function timesInList(lottoArr) {
+  return (target) => {
+    const count = lottoArr.reduce(
+      (acc, arr) => (doesExist(arr, target) ? acc + 1 : acc + 0),
+      0
+    );
+    return count;
+  };
+}
+
+function countOccurrences(combinations, lottoArray) {
+  const occurrencesMap = new Map();
+  const countIfExist = timesInList(lottoArray);
   // Count occurrences of each array
-  arrays.forEach((arr) => {
+  combinations.forEach((arr) => {
     const key = JSON.stringify(arr);
-    occurrencesMap.set(key, (occurrencesMap.get(key) || 0) + 1);
+    occurrencesMap.set(key, (occurrencesMap.get(key) || 0) + countIfExist(arr));
+    //console.log(occurrencesMap);
   });
 
   // Create result array with original array and count
@@ -69,8 +87,9 @@ function countOccurrences(arrays) {
 export function run(arr, k) {
   let combinationArray = generateCombinationsForArrays(arr, k);
   let sortedArray = sortArrayofArrays(combinationArray);
-  let occurenceArray = countOccurrences(sortedArray);
+  console.log(sortedArray);
+  let cleanedArray = removeDuplicates(sortedArray);
+  console.log(cleanedArray);
+  let occurenceArray = countOccurrences(cleanedArray, arr);
   return occurenceArray.sort((a, b) => b[1] - a[1]);
 }
-
-let lottoNumbersArray = [];
