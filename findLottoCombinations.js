@@ -32,7 +32,7 @@ function generateCombinationsForArrays(arrays, k) {
 //  console.log(resultArray);
 
 function sortArrayofArrays(arr) {
-  return newArray.map((a) => a.sort());
+  return arr.map((a) => a.sort());
 }
 
 function countOccurrences(arrays) {
@@ -66,7 +66,7 @@ function countOccurrences(arrays) {
 
 //   console.log(resultArray);
 
-function run(arr, k) {
+export function run(arr, k) {
   let combinationArray = generateCombinationsForArrays(arr, k);
   let sortedArray = sortArrayofArrays(combinationArray);
   let occurenceArray = countOccurrences(sortedArray);
