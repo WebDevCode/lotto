@@ -4,7 +4,13 @@ const button = document.getElementById("submit");
 
 function onSubmit() {
   const rawValue = document.getElementById("textareaID").value;
-  const convertedValue = JSON.parse(rawValue);
+  const firstCleaned = rawValue.trim().split("\n");
+
+  const convertedValue = firstCleaned.map((arr) =>
+    arr.split("-").map((a) => parseInt(a))
+  );
+
+  // const convertedValue = JSON.parse(JSON.stringify(rawValue));
   const combinationValue = parseInt(
     document.querySelector('input[name="combination"]:checked').value
   );
